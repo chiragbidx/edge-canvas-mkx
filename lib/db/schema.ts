@@ -3,6 +3,8 @@ import "server-only";
 import { pgTable, text, timestamp, uniqueIndex } from "drizzle-orm/pg-core";
 import { sql } from "drizzle-orm";
 
+// User, Team, TeamMember, TeamInvitation, AuthToken - unchanged...
+
 export const users = pgTable("users", {
   id: text("id")
     .notNull()
@@ -95,7 +97,8 @@ export const authTokens = pgTable("auth_tokens", {
     .defaultNow(),
 });
 
-export const featureItems = pgTable("feature_items", {
+// Movies table - replaces/extends featureItems for clarity; use below in `/dashboard/movies`.
+export const movies = pgTable("movies", {
   id: text("id")
     .notNull()
     .default(sql`gen_random_uuid()`)
@@ -106,10 +109,40 @@ export const featureItems = pgTable("feature_items", {
   title: text("title").notNull(),
   description: text("description").notNull().default(""),
   status: text("status").notNull().default("active"),
+  genre: text("genre"), // New!
+  releaseYear: text("release_year"),
+  posterUrl: text("poster_url"),
+  runtimeMinutes: text("runtime_minutes"),
   createdAt: timestamp("created_at", { withTimezone: true })
     .notNull()
     .defaultNow(),
   updatedAt: timestamp("updated_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+});
+
+// Rentals table - associate user/team to movie with status.
+export const rentals = pgTable("rentals", {
+  id: text("id")
+    .notNull()
+    .default(sql`gen_random_uuid()`)
+    .primaryKey(),
+  movieId: text("movie_id")
+    .notNull()
+    .references(() => movies.id, { onDelete: "cascade" }),
+  userId: text("user_id")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  teamId: text("team_id")
+    .notNull()
+    .references(() => teams.id, { onDelete: "cascade" }),
+  status: text("status").notNull().default("active"), // active/returned/canceled
+  rentedAt: timestamp("rented_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+  expiresAt: timestamp("expires_at", { withTimezone: true }),
+  returnedAt: timestamp("returned_at", { withTimezone: true }),
+  createdAt: timestamp("created_at", { withTimezone: true })
     .notNull()
     .defaultNow(),
 });
