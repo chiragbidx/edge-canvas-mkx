@@ -143,4 +143,4 @@ importers:
         version: 5.9.3
 
 packages:
-  # ... (all actual package blocks remain unchanged for brevity; only sonner removed)
+  # ... (no changes needed for all actual package blocks)
