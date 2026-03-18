@@ -15,3 +15,10 @@
   - Used "Browse Movies" for main dashboard feature, mapped existing feature scaffold directly.
 - Ensured all legal, footer, and contact info now references Chirag Dodiya and chirag@bidx.ai.
 - All transactional/auth emails use "FlickVault" as brand, contact, and sending identity.
+
+## [2026-04-22] Dependency Cleanups
+
+- Removed all usage of `sonner` notification library.
+- Deleted `sonner` from `package.json` and `pnpm-lock.yaml`.
+- Removed two placeholder files: `components/ui/toast.tsx` and `components/ui/alert.tsx` (contained non-code stubs).
+- Verified all flash/notification UIs use built-in primitives or shadcn/ui alternatives.
