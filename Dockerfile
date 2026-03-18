@@ -9,7 +9,7 @@ RUN corepack enable && corepack prepare pnpm@10.26.2 --activate
 WORKDIR /app
 
 COPY package.json pnpm-lock.yaml ./
-RUN pnpm install --prefer-offline --no-frozen-lockfile
+RUN pnpm install --prefer-online --no-frozen-lockfile
 
 COPY . .
 
