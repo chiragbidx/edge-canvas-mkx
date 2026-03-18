@@ -6,10 +6,11 @@ import { usePathname } from "next/navigation";
 import {
   ChevronDown,
   Home,
-  Hammer,
+  Film,
+  Video,
+  UserSquare,
   Settings,
   Users,
-  CreditCard,
 } from "lucide-react";
 import {
   Collapsible,
@@ -26,21 +27,17 @@ type NavItem = {
 
 const sections: { title: string; items: NavItem[] }[] = [
   {
-    title: "Platform",
+    title: "FlickVault",
     items: [
-      { label: "Overview", href: "/dashboard", icon: Home },
-      {
-        label: "Feature",
-        href: "/dashboard/feature",
-        icon: Hammer,
-      },
+      { label: "Browse Movies", href: "/dashboard/movies", icon: Film },
+      { label: "Your Rentals", href: "/dashboard/rentals", icon: Video },
     ],
   },
   {
     title: "Account",
     items: [
+      { label: "Profile", href: "/dashboard/settings", icon: UserSquare },
       { label: "Team", href: "/dashboard/team", icon: Users },
-      { label: "Billing", href: "#", icon: CreditCard, disabled: true },
       { label: "Settings", href: "/dashboard/settings", icon: Settings },
     ],
   },
